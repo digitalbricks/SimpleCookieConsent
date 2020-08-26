@@ -144,6 +144,15 @@ class SimpleCookieConsent{
 
 
     /**
+     * Revokes choice by deleting cookie and reloads page.
+     */
+    revokeChoice(){
+        this.deleteCookie(this.cookieName);
+        location.reload();
+    }
+
+
+    /**
      * Function wich is called on accept button click.
      * Also runs custom acceptFunction.
      * @param {object} scope 
@@ -200,7 +209,7 @@ class SimpleCookieConsent{
      * @source https://plainjs.com/javascript/utilities/set-cookie-get-cookie-and-delete-cookie-5/
      * @param {string} name 
      */
-    deleteCookie(name) { setCookie(name, '', -1); }
+    deleteCookie(name) { this.setCookie(name, '', -1); }
 }
 
 
@@ -208,7 +217,7 @@ class SimpleCookieConsent{
 
 // TEST
 
-// instatiate
+// instatiate and configure
 var scc = new SimpleCookieConsent({
     'className' :  "scc1",
     'bannerText' : "Diese Website benutzt Cookies",
@@ -221,16 +230,15 @@ var scc = new SimpleCookieConsent({
     'acceptFunction' : myCustomAcceptFunction,
     'denyFunction' : myCustomDenyFunction,
     'devMode': true
-
 });
 
 
-// functions to be executed on accept / deny
-
+// test functions to be executed on accept
 function myCustomAcceptFunction(){
     console.log('accept function');
 }
 
+// test functions to be executed on deny
 function myCustomDenyFunction(){
     console.log('deny function');
 }
