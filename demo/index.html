@@ -15,10 +15,18 @@
             margin: 0;
             font-family: Helvetica, Arial, sans-serif;
         }
+        a{
+            color: #f00;
+        }
         .container{
             margin: 0 auto;
             width: 95%;
             max-width: 1200px;
+        }
+        .box{
+            background-color: #EEAFA9;
+            padding: 2em;
+            margin: 2em 0;
         }
     </style>
 </head>
@@ -28,6 +36,12 @@
     <div class="container">
         <h1>SimpleCookieConsent Test</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam rem aspernatur, nam, delectus fuga officia commodi iste qui, architecto sed modi. Non alias nostrum, ipsum qui architecto atque! Reiciendis, tempora.</p>
+
+        <div class="box">
+            <h2>Revoke cookie test</h2>
+            <p>Click <a onclick='scc.revokeChoice()' href="">HERE</a> to revoke cookie choice.</p>
+        </div>
+
     </div>
 
     <script src="../dist/scc.min.js"></script>
@@ -41,22 +55,24 @@
             'bannerReadMoreUrl' : "http://www.example.com",
             'buttonAccept' : "Erlauben",
             'buttonDeny' : "Ablehnen",
-            'cookieName' : "scc_consented1",
+            'cookieName' : "scc_consented",
             'cookieLifetime' : 7200,
             'acceptFunction' : myCustomAcceptFunction,
             'denyFunction' : myCustomDenyFunction,
-            'devMode': true
+            'devMode': false
         });
 
 
         // test functions to be executed on accept
         function myCustomAcceptFunction(){
             console.log('accept function');
+            alert('myCustomAcceptFunction triggered');
         }
 
         // test functions to be executed on deny
         function myCustomDenyFunction(){
             console.log('deny function');
+            alert('myCustomDenyFunction triggered');
         }
     </script>
 </body>
