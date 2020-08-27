@@ -109,13 +109,13 @@ class SimpleCookieConsent{
         sccMarkup+="        "+this.bannerText+" <a href='"+this.bannerReadMoreUrl+"' target='_blank'>"+this.bannerReadMoreText+"</a>";
         sccMarkup+="    </div>";
         sccMarkup+="    <div class='"+this.className+"__buttons'>";
-        sccMarkup+="        <span class='"+this.className+"__btnAccept'>"+this.buttonAccept+"</span>";
-        sccMarkup+="        <span class='"+this.className+"__btnDeny'>"+this.buttonDeny+"</span>";
+        sccMarkup+="        <button class='"+this.className+"__btnAccept'>"+this.buttonAccept+"</button>";
+        sccMarkup+="        <button class='"+this.className+"__btnDeny'>"+this.buttonDeny+"</button>";
         sccMarkup+="    </div>";
         sccMarkup+="</div>";
 
         sscMarkupContainer.innerHTML = sccMarkup;
-        document.body.appendChild(sscMarkupContainer);
+        document.body.prepend(sscMarkupContainer);
 
         // add event listener to buttons
         // -- accept button
@@ -210,37 +210,6 @@ class SimpleCookieConsent{
      * @param {string} name 
      */
     deleteCookie(name) { this.setCookie(name, '', -1); }
-}
-
-
-
-
-// TEST
-
-// instatiate and configure
-var scc = new SimpleCookieConsent({
-    'className' :  "scc1",
-    'bannerText' : "Diese Website benutzt Cookies",
-    'bannerReadMoreText' : "Mehr erfahren",
-    'bannerReadMoreUrl' : "http://www.example.com",
-    'buttonAccept' : "Erlauben",
-    'buttonDeny' : "Ablehnen",
-    'cookieName' : "scc_consented1",
-    'cookieLifetime' : 7200,
-    'acceptFunction' : myCustomAcceptFunction,
-    'denyFunction' : myCustomDenyFunction,
-    'devMode': true
-});
-
-
-// test functions to be executed on accept
-function myCustomAcceptFunction(){
-    console.log('accept function');
-}
-
-// test functions to be executed on deny
-function myCustomDenyFunction(){
-    console.log('deny function');
 }
 
 

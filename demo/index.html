@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Cookie Consent</title>
+    <link rel="stylesheet" href="../dist/scc.min.css">
+    <style>
+        html{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            padding: 0;
+            margin: 0;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .container{
+            margin: 0 auto;
+            width: 95%;
+            max-width: 1200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>SimpleCookieConsent Test</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam rem aspernatur, nam, delectus fuga officia commodi iste qui, architecto sed modi. Non alias nostrum, ipsum qui architecto atque! Reiciendis, tempora.</p>
+    </div>
+
+    <script src="../dist/scc.min.js"></script>
+    <script>
+        // TEST
+
+        // instatiate and configure
+        var scc = new SimpleCookieConsent({
+            'bannerText' : "Diese Website benutzt Cookies für die Nutzungsanalyse (Tracking-Cookes) – jedoch nur nach Ihrer Zustimmung (Opt-IN).",
+            'bannerReadMoreText' : "Mehr&nbsp;erfahren",
+            'bannerReadMoreUrl' : "http://www.example.com",
+            'buttonAccept' : "Erlauben",
+            'buttonDeny' : "Ablehnen",
+            'cookieName' : "scc_consented1",
+            'cookieLifetime' : 7200,
+            'acceptFunction' : myCustomAcceptFunction,
+            'denyFunction' : myCustomDenyFunction,
+            'devMode': true
+        });
+
+
+        // test functions to be executed on accept
+        function myCustomAcceptFunction(){
+            console.log('accept function');
+        }
+
+        // test functions to be executed on deny
+        function myCustomDenyFunction(){
+            console.log('deny function');
+        }
+    </script>
+</body>
+
+</html>

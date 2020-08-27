@@ -1,0 +1,121 @@
+@scc-font-size: 0.9em;
+
+@scc-background-color: #AD1D1D;
+@scc-text-color: #fff;
+@scc-readmore-color: #fff;
+
+@scc-btn-accept-background: #E66C6C;
+@scc-btn-deny-background: #E02525;
+@scc-btn-accept-color: #fff;
+@scc-btn-deny-color: #fff;
+
+
+.fade-in {
+    animation: fadeIn ease 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    animation: fadeOut ease 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+.scc{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 1em 0;
+    background-color: @scc-background-color;
+    color: @scc-text-color;
+    font-size: @scc-font-size;
+    line-height: 1.3;
+    .fade-in;
+    &.inactive{
+        .fade-out;
+    }
+    a{
+        color: @scc-readmore-color;
+    }
+    .scc__inner{
+        margin: 0 auto;
+        width: 95%;
+        max-width: 1200px;
+    }
+    button{
+        appearance: none;
+        border: none;
+        font-size: @scc-font-size;
+        padding: 0.5em;
+        width: 48%;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.3);
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    .scc__text{
+        padding-bottom: 1em;
+    }
+    .scc__buttons{
+        display: flex;
+        justify-content: space-between;
+    }
+    .scc__btnAccept{
+        background-color: @scc-btn-accept-background;
+        color: @scc-btn-accept-color;
+    }
+    .scc__btnDeny{
+        background-color: @scc-btn-deny-background;
+        color: @scc-btn-deny-color;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .scc{
+        .scc__inner{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .scc__text{
+            width: 58%;
+            padding-bottom: 0;
+        }
+        .scc__buttons{
+            width: 40%;
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px){
+    .scc{
+        .scc__text{
+            width: 68%;
+        }
+        .scc__buttons{
+            width: 30%;
+        }
+    }
+}
