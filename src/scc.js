@@ -117,6 +117,10 @@ class SimpleCookieConsent{
         sscMarkupContainer.innerHTML = sccMarkup;
         document.body.prepend(sscMarkupContainer);
 
+        // add marker class to <html>, so we could adjust the site css if banner is opened
+        // (e.g. adding some footer padding to prevent banner from overlapping important legal links)
+        this.addBannerOpendMarker();
+
         // add event listener to buttons
         // -- accept button
         var scope = this;
@@ -136,6 +140,10 @@ class SimpleCookieConsent{
         var banner = document.getElementsByClassName(this.className)[0];
         // add CSS class wich may use for animation
         banner.classList.add('inactive');
+
+        // remove marker from <html>
+        this.removeBannerOpendMarker();
+
         // finally, remove the element from DOM
         setTimeout(function(){
             banner.remove();
@@ -175,6 +183,25 @@ class SimpleCookieConsent{
         scope.setCookie(scope.cookieName,"denied",scope.cookieLifetime);
         scope.hideConsentBanner();
         scope.denyFunction();
+    }
+
+
+    /**
+     * Adds "[this.className]-banner-open" to <html> 
+     * so the site css could react to the presence of
+     * the consent banner.
+     */
+    addBannerOpendMarker(){
+        document.getElementsByTagName( 'html' )[0].classList.add(this.className+'-banner-open');
+    }
+
+    /**
+     * Removes "[this.className]-banner-open" from <html> 
+     * so the site css could react to the presence of
+     * the consent banner.
+     */
+    removeBannerOpendMarker(){
+        document.getElementsByTagName( 'html' )[0].classList.remove(this.className+'-banner-open');
     }
 
 

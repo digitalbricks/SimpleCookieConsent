@@ -14,6 +14,8 @@
             padding: 0;
             margin: 0;
             font-family: Helvetica, Arial, sans-serif;
+            font-size: 1em;
+            line-height: 1.3;
         }
         a{
             color: #f00;
@@ -28,18 +30,30 @@
             padding: 2em;
             margin: 2em 0;
         }
+        /* Adapte the website CSS in order to react to
+         * the presence of the consent banner.
+         * So we may add e.g. some padding to the footer
+         * to prevent legal links (imprint, privacy) from
+         * being overlapped by the banner.
+         *
+         * The ".scc-banner-open" class is added to the
+         * <html> element when the consent banner is shown.
+         */
+        .scc-banner-open body{
+          padding-bottom: 8em;  
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <h1>SimpleCookieConsent Test</h1>
+        <h1>SimpleCookie&shy;Consent Test</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam rem aspernatur, nam, delectus fuga officia commodi iste qui, architecto sed modi. Non alias nostrum, ipsum qui architecto atque! Reiciendis, tempora.</p>
 
         <div class="box">
             <h2>Revoke cookie test</h2>
-            <p>Click <a onclick='scc.revokeChoice()' href="">HERE</a> to revoke cookie choice.</p>
+            <p>Click <a onclick='scc.revokeChoice()' href="">HERE</a> to revoke cookie choice. This will delete the consent cookie and reload the page.</p>
         </div>
 
     </div>
@@ -55,7 +69,6 @@
             'bannerReadMoreUrl' : "http://www.example.com",
             'buttonAccept' : "Erlauben",
             'buttonDeny' : "Ablehnen",
-            'cookieName' : "scc_consented",
             'cookieLifetime' : 7200,
             'acceptFunction' : myCustomAcceptFunction,
             'denyFunction' : myCustomDenyFunction,
@@ -66,13 +79,13 @@
         // test functions to be executed on accept
         function myCustomAcceptFunction(){
             console.log('accept function');
-            alert('myCustomAcceptFunction triggered');
+            alert('myCustomAcceptFunction triggered. You may execute your tracking code function here.');
         }
 
         // test functions to be executed on deny
         function myCustomDenyFunction(){
             console.log('deny function');
-            alert('myCustomDenyFunction triggered');
+            alert('myCustomDenyFunction triggered. You may execute functions for DISABLING tracking here.');
         }
     </script>
 </body>
