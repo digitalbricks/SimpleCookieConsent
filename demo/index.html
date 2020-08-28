@@ -72,20 +72,20 @@
             'cookieLifetime' : 7200,
             'acceptFunction' : myCustomAcceptFunction,
             'denyFunction' : myCustomDenyFunction,
-            'devMode': false
+            'devMode': true
         });
 
 
         // test functions to be executed on accept
         function myCustomAcceptFunction(){
             console.log('accept function');
-            alert('myCustomAcceptFunction triggered. You may execute your tracking code function here.');
+            //alert('myCustomAcceptFunction triggered. You may execute your tracking code function here.');
         }
 
         // test functions to be executed on deny
         function myCustomDenyFunction(){
             console.log('deny function');
-            alert('myCustomDenyFunction triggered. You may execute functions for DISABLING tracking here.');
+            //alert('myCustomDenyFunction triggered. You may execute functions for DISABLING tracking here.');
         }
     </script>
 </body>

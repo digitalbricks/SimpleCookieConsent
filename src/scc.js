@@ -79,10 +79,17 @@ class SimpleCookieConsent{
             // create markup
             this.showConsentBanner();
         } else {
+            // dev message
             if(this.devMode){
-                console.log('Cookie is set, but banner is shown anyway because we are in development mode.');
+                console.log('constructor(): Cookie is set, but banner is shown anyway because we are in development mode.');
                 this.showConsentBanner();
             }
+        }
+
+        // check of cookie consent is already accepted
+        // and executed the accept function
+        if(this.getCookie(this.cookieName)=='accepted'){
+            this.acceptFunction();
         }
 
     }
@@ -97,7 +104,18 @@ class SimpleCookieConsent{
         if(banner){
             // make sure it is visible (remove class wich controls visibility via CSS)
             document.getElementsByClassName(this.className)[0].classList.remove('inactive');
+
+            // dev message
+            if(this.devMode){
+                console.log('showConsentBanner(): Banner already present in DOM, just removed "inactive" class.');
+            }
+
             return;
+        }
+
+        // dev message
+        if(this.devMode){
+            console.log('showConsentBanner(): Banner NOT present in DOM, so we create it.');
         }
 
         // markup creation (if not already exists)
@@ -137,6 +155,11 @@ class SimpleCookieConsent{
      * Hides the consent banner.
      */
     hideConsentBanner(){
+        // dev message
+        if(this.devMode){
+            console.log('hideConsentBanner(): Function called.');
+        }
+
         var banner = document.getElementsByClassName(this.className)[0];
         // add CSS class wich may use for animation
         banner.classList.add('inactive');
@@ -155,6 +178,11 @@ class SimpleCookieConsent{
      * Revokes choice by deleting cookie and reloads page.
      */
     revokeChoice(){
+        // dev message
+        if(this.devMode){
+            console.log('revokeChoice(): Function called.');
+        }
+
         this.deleteCookie(this.cookieName);
         location.reload();
     }
@@ -166,10 +194,28 @@ class SimpleCookieConsent{
      * @param {object} scope 
      */
     consentAccept(scope){
-        //console.log('Accepted');   
-        scope.setCookie(scope.cookieName,"accepted",scope.cookieLifetime);
-        scope.hideConsentBanner();
-        scope.acceptFunction();
+        // dev message
+        if(this.devMode){
+            console.log('consentAccept(): Function called.');
+        }
+
+        // check if cookie previous value is not "denied"
+        // which means we now have a consent state change
+        if(scope.getCookie(scope.cookieName)=='denied'){
+            scope.setCookie(scope.cookieName,"accepted",scope.cookieLifetime);
+            
+            // reload page to make sure all scipts may react to state change
+            location.reload();
+        } else {
+            // dev message
+            if(this.devMode){
+                console.log('consentAccept(): NO state change, do not need to reload page.');
+            }
+
+            scope.setCookie(scope.cookieName,"accepted",scope.cookieLifetime);
+            scope.hideConsentBanner();
+            scope.acceptFunction();
+        }
     }
 
 
@@ -179,10 +225,26 @@ class SimpleCookieConsent{
      * @param {object} scope 
      */
     consentDeny(scope){
-        //console.log('Denied');
-        scope.setCookie(scope.cookieName,"denied",scope.cookieLifetime);
-        scope.hideConsentBanner();
-        scope.denyFunction();
+        // dev message
+        if(this.devMode){
+            console.log('consentDeny(): Function called.');
+        }
+
+        if(scope.getCookie(scope.cookieName)=='accepted'){
+            scope.setCookie(scope.cookieName,"denied",scope.cookieLifetime);
+
+            // reload page to make sure all scipts may react to state change
+            location.reload();
+        } else {
+            // dev message
+            if(this.devMode){
+                console.log('consentAccept(): NO state change, do not need to reload page.');
+            }
+
+            scope.setCookie(scope.cookieName,"denied",scope.cookieLifetime);
+            scope.hideConsentBanner();
+            scope.denyFunction();
+        }
     }
 
 
@@ -192,6 +254,10 @@ class SimpleCookieConsent{
      * the consent banner.
      */
     addBannerOpendMarker(){
+        // dev message
+        if(this.devMode){
+            console.log('addBannerOpendMarker(): Function called.');
+        }
         document.getElementsByTagName( 'html' )[0].classList.add(this.className+'-banner-open');
     }
 
@@ -201,6 +267,10 @@ class SimpleCookieConsent{
      * the consent banner.
      */
     removeBannerOpendMarker(){
+        // dev message
+        if(this.devMode){
+            console.log('removeBannerOpendMarker(): Function called.');
+        }
         document.getElementsByTagName( 'html' )[0].classList.remove(this.className+'-banner-open');
     }
 
@@ -216,7 +286,12 @@ class SimpleCookieConsent{
         var d = new Date;
         var timestamp = d.getTime();
 	    d.setTime(timestamp + parseInt(seconds)*1000);
-	    document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString() + "samesite=lax; secure=true";
+        document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString() + "samesite=lax; secure=true";
+        
+        // dev message
+        if(this.devMode){
+            console.log('setCookie(): Cookie set. NAME: '+name+' VALUE: '+value);
+        }
     }
     
 
@@ -236,7 +311,13 @@ class SimpleCookieConsent{
      * @source https://plainjs.com/javascript/utilities/set-cookie-get-cookie-and-delete-cookie-5/
      * @param {string} name 
      */
-    deleteCookie(name) { this.setCookie(name, '', -1); }
+    deleteCookie(name) { 
+        // dev message
+        if(this.devMode){
+            console.log('deleteCookie(): Function called.');
+        }
+        this.setCookie(name, '', -1); 
+    }
 }
 
 
