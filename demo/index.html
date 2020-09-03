@@ -74,17 +74,6 @@
         });
 
 
-        // test functions to be executed on accept
-        function myCustomAcceptFunction(){
-            console.log('accept function');
-            //alert('myCustomAcceptFunction triggered. You may execute your tracking code function here.');
-        }
-
-        // test functions to be executed on deny
-        function myCustomDenyFunction(){
-            console.log('deny function');
-            //alert('myCustomDenyFunction triggered. You may execute functions for DISABLING tracking here.');
-        }
 
         // event listener for accept (emitted from window object)
         window.addEventListener('scc-accepted', function (e) { 
