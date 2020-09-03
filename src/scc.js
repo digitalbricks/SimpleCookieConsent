@@ -12,8 +12,6 @@ class SimpleCookieConsent{
     buttonDeny = "Deny";
     cookieName = "scc_consented";
     cookieLifetime = 3600;
-    acceptFunction = function(){};
-    denyFunction = function(){};
     devMode = false;
     
     /**
@@ -55,14 +53,6 @@ class SimpleCookieConsent{
         if(sccConfig.cookieLifetime){
             this.cookieLifetime = parseInt(sccConfig.cookieLifetime);
         }
-        // -- acceptFunction
-        if(sccConfig.acceptFunction){
-            this.acceptFunction = sccConfig.acceptFunction;
-        }
-        // -- denyFunction
-        if(sccConfig.denyFunction){
-            this.denyFunction = sccConfig.denyFunction;
-        }
         // -- devMode
         if(sccConfig.devMode===true){
             this.devMode = true;
@@ -87,9 +77,11 @@ class SimpleCookieConsent{
         }
 
         // check of cookie consent is already accepted
-        // and executed the accept function
+        // and emit 'scc-accepted' event
         if(this.getCookie(this.cookieName)=='accepted'){
-            this.acceptFunction();
+            // emit event 'scc-accepted'
+            var event = new Event('scc-accepted');
+            window.dispatchEvent(event);
         }
 
     }
@@ -190,7 +182,6 @@ class SimpleCookieConsent{
 
     /**
      * Function wich is called on accept button click.
-     * Also runs custom acceptFunction.
      * @param {object} scope 
      */
     consentAccept(scope){
@@ -214,14 +205,16 @@ class SimpleCookieConsent{
 
             scope.setCookie(scope.cookieName,"accepted",scope.cookieLifetime);
             scope.hideConsentBanner();
-            scope.acceptFunction();
+
+            // emit event 'scc-accepted'
+            var event = new Event('scc-accepted');
+            window.dispatchEvent(event);
         }
     }
 
 
     /**
      * Function wich is called on deny button click.
-     * Also runs custom acceptFunction.
      * @param {object} scope 
      */
     consentDeny(scope){
@@ -243,7 +236,10 @@ class SimpleCookieConsent{
 
             scope.setCookie(scope.cookieName,"denied",scope.cookieLifetime);
             scope.hideConsentBanner();
-            scope.denyFunction();
+
+            // emit event 'scc-denied'
+            var event = new Event('scc-denied');
+            window.dispatchEvent(event);
         }
     }
 

@@ -70,8 +70,6 @@
             'buttonAccept' : "Erlauben",
             'buttonDeny' : "Ablehnen",
             'cookieLifetime' : 7200,
-            'acceptFunction' : myCustomAcceptFunction,
-            'denyFunction' : myCustomDenyFunction,
             'devMode': true
         });
 
@@ -87,6 +85,16 @@
             console.log('deny function');
             //alert('myCustomDenyFunction triggered. You may execute functions for DISABLING tracking here.');
         }
+
+        // event listener for accept (emitted from window object)
+        window.addEventListener('scc-accepted', function (e) { 
+            console.log('ssc-accepted event detected');
+        }, false);
+
+        // event listener for deny (emitted from window object)
+        window.addEventListener('scc-denied', function (e) { 
+            console.log('ssc-denied event detected');
+        }, false);
     </script>
 </body>
 
