@@ -78,11 +78,20 @@ class SimpleCookieConsent{
 
         // check of cookie consent is already accepted
         // and emit 'scc-accepted' event
+        /* NOTE: We delay the event emission with setTimeout
+         * in order to give event listeners time to beeing
+         * attached. This delay is only needed here in the 
+         * constructor, because its the first function called
+         * on object instantiation.
+         */ 
         if(this.getCookie(this.cookieName)=='accepted'){
-            // emit event 'scc-accepted'
-            var event = new Event('scc-accepted');
-            window.dispatchEvent(event);
-        }
+            setTimeout(function(){ 
+                // emit event 'scc-accepted'
+                var event = new Event('scc-accepted');
+                window.dispatchEvent(event);
+            }, 300);
+            
+        } 
 
     }
 
@@ -176,6 +185,12 @@ class SimpleCookieConsent{
         }
 
         this.deleteCookie(this.cookieName);
+
+        // emit event 'scc-revoked'
+        var event = new Event('scc-revoked');
+        window.dispatchEvent(event);
+
+        // load page, so (server side) scripts mays react
         location.reload();
     }
 
@@ -190,26 +205,15 @@ class SimpleCookieConsent{
             console.log('consentAccept(): Function called.');
         }
 
-        // check if cookie previous value is not "denied"
-        // which means we now have a consent state change
-        if(scope.getCookie(scope.cookieName)=='denied'){
-            scope.setCookie(scope.cookieName,"accepted",scope.cookieLifetime);
-            
-            // reload page to make sure all scipts may react to state change
-            location.reload();
-        } else {
-            // dev message
-            if(this.devMode){
-                console.log('consentAccept(): NO state change, do not need to reload page.');
-            }
+        // set cookie value "accepted"
+        scope.setCookie(scope.cookieName,"accepted",scope.cookieLifetime);
 
-            scope.setCookie(scope.cookieName,"accepted",scope.cookieLifetime);
-            scope.hideConsentBanner();
+        // emit event 'scc-accepted'
+        var event = new Event('scc-accepted');
+        window.dispatchEvent(event);
 
-            // emit event 'scc-accepted'
-            var event = new Event('scc-accepted');
-            window.dispatchEvent(event);
-        }
+        // hide consent banner
+        scope.hideConsentBanner();
     }
 
 
@@ -222,25 +226,16 @@ class SimpleCookieConsent{
         if(this.devMode){
             console.log('consentDeny(): Function called.');
         }
+        
+        // set cookie value "denied"
+        scope.setCookie(scope.cookieName,"denied",scope.cookieLifetime);
 
-        if(scope.getCookie(scope.cookieName)=='accepted'){
-            scope.setCookie(scope.cookieName,"denied",scope.cookieLifetime);
+        // emit event 'scc-denied'
+        var event = new Event('scc-denied');
+        window.dispatchEvent(event);
 
-            // reload page to make sure all scipts may react to state change
-            location.reload();
-        } else {
-            // dev message
-            if(this.devMode){
-                console.log('consentAccept(): NO state change, do not need to reload page.');
-            }
-
-            scope.setCookie(scope.cookieName,"denied",scope.cookieLifetime);
-            scope.hideConsentBanner();
-
-            // emit event 'scc-denied'
-            var event = new Event('scc-denied');
-            window.dispatchEvent(event);
-        }
+        // hide consent banner
+        scope.hideConsentBanner();
     }
 
 

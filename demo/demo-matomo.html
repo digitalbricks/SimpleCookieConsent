@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Cookie Consent</title>
+    <title>Simple Cookie Consent – Demo with Matomo</title>
     <link rel="stylesheet" href="../dist/scc.min.css">
     <style>
         html{
@@ -48,7 +48,7 @@
 <body>
 
     <div class="container">
-        <h1>SimpleCookie&shy;Consent Test</h1>
+        <h1>SimpleCookie&shy;Consent Test – with Matomo</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam rem aspernatur, nam, delectus fuga officia commodi iste qui, architecto sed modi. Non alias nostrum, ipsum qui architecto atque! Reiciendis, tempora.</p>
 
         <div class="box">
@@ -65,36 +65,72 @@
 
     <script src="../dist/scc.min.js"></script>
     <script>
-        // TEST
 
         // instatiate and configure
-        var scc = new SimpleCookieConsent({
+        scc = new SimpleCookieConsent({
             'bannerText' : "Diese Website benutzt Cookies für die Nutzungsanalyse (Tracking-Cookes) – jedoch nur nach Ihrer Zustimmung (Opt-IN).",
             'bannerReadMoreText' : "Mehr&nbsp;erfahren",
             'bannerReadMoreUrl' : "http://www.example.com",
             'buttonAccept' : "Erlauben",
             'buttonDeny' : "Ablehnen",
             'cookieLifetime' : 7200,
-            'devMode': true
+            'devMode': false
         });
 
 
-
-        // event listener for accept (emitted from window object)
+        // if consent accepted (ssc-accepted event), enable MATOMO
         window.addEventListener('scc-accepted', function (e) { 
-            console.log('ssc-accepted event detected');
+            enableMatomo();
         }, false);
 
-        // event listener for deny (emitted from window object)
+        // if consent denied (ssc-denied event), disable MATOMO
         window.addEventListener('scc-denied', function (e) { 
-            console.log('ssc-denied event detected');
+            disableMatomo();
         }, false);
 
-        // event listener for revoke (emitted from window object)
+        // if revoked (ssc-revoked event), disable MATOMO
         window.addEventListener('scc-revoked', function (e) { 
-            console.log('ssc-revoked event detected');
-            alert('revoked');
+            disableMatomo();
         }, false);
+
+
+
+
+
+
+        /* --- [START] MATOMO specific stuff ---------------------------------------------------------- */
+        // MATOMO vars and functions
+        var matomo_url="//analytics.example.com/";              // URL to your MATOMO installation
+        var _paq = _paq || [];                                  // (just init, no need for changes here)
+        _paq.push(['setVisitorCookieTimeout', 2880]);           // MATOMO visitor cookie lifetime in seconds
+        _paq.push(['setReferralCookieTimeout', 2880]);          // MATOMO referal cookie lifetime in seconds
+        _paq.push(['setSessionCookieTimeout', 0]);              // MATOMO session cookie lifetime in seconds (0 = session only)
+        _paq.push(["trackPageView"]);                           // (just say MATOMO what to do, no need for changes here)
+        _paq.push(["enableLinkTracking"]);                      // enable link tracking (comment out, if not needed)
+        _paq.push(["setTrackerUrl", matomo_url+"piwik.php"]);   // (just say MATOMO where the php script is, no need for changes here)
+        _paq.push(["setSiteId", "1"]);                          // define the site ID where activity should reported (see your matomo installation)
+        _paq.push(['enableHeartBeatTimer', 30]);                // enable heartbeat timer and set heartbeat interval in seconds (comment out, if not needed)
+
+        function enableMatomo() {
+            var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+            g.defer=true; g.async=true; g.src=matomo_url+"piwik.js"; s.parentNode.insertBefore(g,s);
+            console.log('MATOMO Tracking enabled')
+        }
+
+        function disableMatomo(){
+            _paq.push(["disableCookies"]);
+            _paq.push(["deleteCookies"]);
+            location.reload();
+            console.log('MATOMO Tracking disabled')
+        }
+
+        /* --- [END] MATOMO specific stuff ---------------------------------------------------------- */
+
+        
+
+
+
+       
     </script>
 </body>
 
