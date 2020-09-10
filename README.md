@@ -4,6 +4,8 @@
 
 A simple cookie consent banner (SCC) with Opt-IN (accept / deny) only. Very basic and small. No fancy delicate settings for different cookie types – just yes or no (of course you can label the buttons however you want).
 
+<a href="https://htmlpreview.github.io/?https://github.com/digitalbricks/SimpleCookieConsent/blob/master/demo/index.html">**Click here for a preview**</a> (shows <a href="demo/index.html">`/demo/index.html`</a>)
+
 Living and working in germany, this software was made with our local and EU laws in mind so it may or may not fit your needs.
 
 **As far as I know** (see disclaimer) there is no consent needed for technically necessary cookies (as they are ... technically necessary) but for (unnecessary) cookies e.g. for tracking purposes. So SCC gives you a simple tool for loading and unloading tracking related stuff depending on given consent.
