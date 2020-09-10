@@ -6,7 +6,7 @@ class SimpleCookieConsent{
     version = "0.1";
     className = "scc";
     bannerText = "This website uses cookies for technical reasons";
-    bannerReadMoreText = "Lern more";
+    bannerReadMoreText = "Learn more";
     bannerReadMoreUrl = "";
     buttonAccept = "Accept";
     buttonDeny = "Deny";
@@ -147,7 +147,7 @@ class SimpleCookieConsent{
         sccMarkup+="</div>";
 
         sscMarkupContainer.innerHTML = sccMarkup;
-        
+
         // NOTE: the following line is a workaround for "document.body.prepend(sscMarkupContainer);"
         // because IE does not have the prepend() method and i won't add a polyfill for that.
         document.body.insertBefore(sscMarkupContainer, document.body.firstChild);

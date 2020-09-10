@@ -69,6 +69,29 @@ Basically you just need the two files located in the `/dist` folder. The rest is
 
 You will find this simple demo in <a href="demo/index.html">`/demo/index.html`</a>. 
 
+## Configuration options
+| Property            | Default                      | Description                          |
+|---------------------|------------------------------|--------------------------------------|
+| `className`         | "scc";                       | CSS class name of consent banner     |
+| `bannerText`        | "This website uses (...))";  | Banner text, you may use HTML        |
+| `bannerReadMoreText`|  "Learn more";               | Text for link to privacy police      |
+| `bannerReadMoreUrl` | "";                          | URL to the privacy police            |
+| `buttonAccept`      | "Accept";                    | Label of the button to accept        |
+| `buttonDeny`        | "Deny";                      | Label of the button to deny          |
+| `cookieName`        | "scc_consented";             | Name of the consent state cookie     |
+| `cookieLifetime`    | 3600;                        | Lifetime of consent state cookie in s|
+| `devMode`           | false;                       | Set to true for verbose consloe logs |
+
+
+## Usefull methods
+| Method                | Description                                                       |
+|-----------------------|-------------------------------------------------------------------|
+| `revokeChoice()`      | Delets the consent state cookie and emitts the `scc-revoked` event|
+| `showConsentBanner()` | (Re)creates the banner in the DOM                                 |
+
+For an example on how you may use these methods on your site, see <a href="demo/index.html">`/demo/index.html`</a>.
+
+
 ## Control tracking cookies with SCC
 ### MATOMO
 If you are using MATOMO (formerly known as PIWIK), you will a find an example in <a href="demo/demo-matomo.html">`/demo/demo-matomo.html`</a>.
