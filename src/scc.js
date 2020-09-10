@@ -71,7 +71,7 @@ class SimpleCookieConsent{
          * but page isn't served via HTTPS. So we have to check which protocoll
          * is used before setting the secure attribute on the cookie. 
          */
-        if (location.protocol !== 'https:') {
+        if(location.protocol !== 'https:') {
             this.cookieSecure = false;
         }
 
@@ -147,7 +147,10 @@ class SimpleCookieConsent{
         sccMarkup+="</div>";
 
         sscMarkupContainer.innerHTML = sccMarkup;
-        document.body.prepend(sscMarkupContainer);
+        
+        // NOTE: the following line is a workaround for "document.body.prepend(sscMarkupContainer);"
+        // because IE does not have the prepend() method and i won't add a polyfill for that.
+        document.body.insertBefore(sscMarkupContainer, document.body.firstChild);
 
         // add marker class to <html>, so we could adjust the site css if banner is opened
         // (e.g. adding some footer padding to prevent banner from overlapping important legal links)
@@ -332,4 +335,28 @@ class SimpleCookieConsent{
 
 
 
-
+// Polyfill for prepend() – needed for IE
+// Source: https://github.com/jserz/js_piece/blob/master/DOM/ParentNode/prepend()/prepend().md
+/* (function (arr) {
+    arr.forEach(function (item) {
+      if (item.hasOwnProperty('prepend')) {
+        return;
+      }
+      Object.defineProperty(item, 'prepend', {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: function prepend() {
+          var argArr = Array.prototype.slice.call(arguments),
+            docFrag = document.createDocumentFragment();
+          
+          argArr.forEach(function (argItem) {
+            var isNode = argItem instanceof Node;
+            docFrag.appendChild(isNode ? argItem : document.createTextNode(String(argItem)));
+          });
+          
+          this.insertBefore(docFrag, this.firstChild);
+        }
+      });
+    });
+  })([Element.prototype, Document.prototype, DocumentFragment.prototype]); */
