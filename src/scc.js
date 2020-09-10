@@ -12,6 +12,7 @@ class SimpleCookieConsent{
     buttonDeny = "Deny";
     cookieName = "scc_consented";
     cookieLifetime = 3600;
+    cookieSecure = true;
     devMode = false;
     
     /**
@@ -63,6 +64,17 @@ class SimpleCookieConsent{
             console.warn('NOTE: Script is in devolpement mode. Set devMode to "false" to disable.')
         }
 
+        // check if page was NOT served via HTTPS and adapt cookieSecure property
+        // which is used in setCookie() method
+        /**
+         * NOTE: Chrome will not set the cookie if it is configured as secure
+         * but page isn't served via HTTPS. So we have to check which protocoll
+         * is used before setting the secure attribute on the cookie. 
+         */
+        if (location.protocol !== 'https:') {
+            this.cookieSecure = false;
+        }
+
 
         // check if cookie exists and create banner if not
         if(this.getCookie(this.cookieName)===null){
@@ -78,7 +90,8 @@ class SimpleCookieConsent{
 
         // check of cookie consent is already accepted
         // and emit 'scc-accepted' event
-        /* NOTE: We delay the event emission with setTimeout
+        /**
+         * NOTE: We delay the event emission with setTimeout
          * in order to give event listeners time to beeing
          * attached. This delay is only needed here in the 
          * constructor, because its the first function called
@@ -276,12 +289,18 @@ class SimpleCookieConsent{
     setCookie(name, value, seconds) {
         var d = new Date;
         var timestamp = d.getTime();
-	    d.setTime(timestamp + parseInt(seconds)*1000);
-        document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString() + "samesite=lax; secure=true";
+        d.setTime(timestamp + parseInt(seconds)*1000);
+        
+        // prepare cookie contents / configuration
+        var cookiecontents = name + "=" + value + "; path=/; expires=" + d.toGMTString() + "; samesite=lax";
+        if(this.cookieSecure){
+            cookiecontents += "; secure=true";
+        }
+        document.cookie = cookiecontents;
         
         // dev message
         if(this.devMode){
-            console.log('setCookie(): Cookie set. NAME: '+name+' VALUE: '+value);
+            console.log('setCookie(): Cookie set. Contents: '+cookiecontents);
         }
     }
     
