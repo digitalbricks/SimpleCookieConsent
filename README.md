@@ -74,7 +74,7 @@ You will find this simple demo in <a href="demo/index.html">`/demo/index.html`</
 If you are using MATOMO (formerly known as PIWIK), you will a find an example in <a href="demo/demo-matomo.html">`/demo/demo-matomo.html`</a>.
 
 ### Google Analytics
-The moment there is no demo for the use with Google Analytics – because I personally dislike GA an encourage you to NOT giving analytic data to other companies. But I will add a demo in the future – meanwhile you may check my (german) blog post on <a href="https://www.vektorkneter.de/google-analytics-tracking-cookie-opt-in/">how to do a Google Analytics OPT-IN</a> with Osano Cookie Consent. The function for enabling / disabling GA Cookies will also work with SCC i assume.
+At the moment there is no demo for the use with Google Analytics – because I personally dislike GA an encourage you to NOT giving analytic data to other companies. But I will add a demo in the future – meanwhile you may check my (german) blog post on <a href="https://www.vektorkneter.de/google-analytics-tracking-cookie-opt-in/">how to do a Google Analytics OPT-IN</a> with Osano Cookie Consent. The function for enabling / disabling GA Cookies will also work with SCC i assume.
 
 ## Browser support
 I testet SSC in the following browser. For Firefox, Chrome, Safari and (Blink-)Edge it should also work in older versions – but be carefull if you want to support older IEs. 
