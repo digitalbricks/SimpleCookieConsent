@@ -2,3 +2,4 @@
 .DS_Store
 node_modules
 demo/test-matomo.html
+demo/test-google-analytics.html

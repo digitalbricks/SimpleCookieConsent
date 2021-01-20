@@ -3,7 +3,7 @@
 
 class SimpleCookieConsent{
 
-    version = "0.1";
+    version = "0.2";
     className = "scc";
     bannerText = "This website uses cookies for technical reasons";
     bannerReadMoreText = "Learn more";
@@ -104,7 +104,19 @@ class SimpleCookieConsent{
                 window.dispatchEvent(event);
             }, 300);
             
-        } 
+        } else if(this.getCookie(this.cookieName)=='denied'){
+            setTimeout(function(){ 
+                // emit event 'scc-accepted'
+                var event = new Event('scc-denied');
+                window.dispatchEvent(event);
+            }, 300);
+        } else {
+            setTimeout(function(){ 
+                // emit event 'scc-accepted'
+                var event = new Event('scc-nochoice');
+                window.dispatchEvent(event);
+            }, 300);
+        }
 
     }
 

@@ -50,6 +50,11 @@ Basically you just need the two files located in the `/dist` folder. The rest is
         // Now you can add event listeners for accept, deny & revoke
         // and execute your custom functions on each event
 
+        // event listener for no choice (emitted from window object)
+        window.addEventListener('scc-nochoice', function (e) { 
+            console.log('ssc-nochoice event detected');
+        }, false);
+
         // event listener for accept (emitted from window object)
         window.addEventListener('scc-accepted', function (e) { 
             console.log('ssc-accepted event detected');
