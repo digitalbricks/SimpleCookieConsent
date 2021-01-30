@@ -107,8 +107,18 @@
         /* --- [START] GOOGLE ANALYTICS specific stuff ------------------------------------------------ */
         /**
          * Functions for Google Analytics Opt-IN
-         * v2.0 – 16.01.2021
+         * with Osano Cookie Consent (https://www.osano.com/cookieconsent/download/)
+         * v2.1 – 30.01.2021
          * vektorkneter.de
+         * 
+         * 
+         * Changelog:
+         * v2.1 – 30.01.2021
+         * – some changes in clearCookie() wich might improve the reliability of 
+         *   cookie clearing in Google Chrome (based on a single issue report)
+         * 
+         * v2.0 – 16.01.2021
+         * – added support for new tracking IDs with format G-XXXXXXXXXX
          */
 
         // Google Analytics tracking ID
@@ -176,7 +186,7 @@
             if(!path || path==""){
                 path = "/";
             }
-            document.cookie = name + '=true; domain=' +  domain +'; expires=Thu, 31 Dec 2000 23:59:59 UTC; path=' + path;
+            document.cookie = name + '=; domain=' +  domain +'; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=' + path;
         } 
 
 
