@@ -65,8 +65,8 @@
 
     <script src="../dist/scc.min.js"></script>
     <script>
-        // TEST
 
+        /* --- [START] SimpleCookieConsent Configuration ---------------------------------------------- */
         // instatiate and configure
         scc = new SimpleCookieConsent({
             'bannerText' : "Diese Website benutzt Cookies für die Nutzungsanalyse (Tracking-Cookes) – jedoch nur nach Ihrer Zustimmung (Opt-IN).",
@@ -98,6 +98,7 @@
             deleteGACookies();
             location.reload();
         }, false);
+        /* --- [END] SimpleCookieConsent Configuration ----------------------------------------------- */
 
 
 
@@ -105,22 +106,6 @@
 
         
         /* --- [START] GOOGLE ANALYTICS specific stuff ------------------------------------------------ */
-        /**
-         * Functions for Google Analytics Opt-IN
-         * with Osano Cookie Consent (https://www.osano.com/cookieconsent/download/)
-         * v2.1 – 30.01.2021
-         * vektorkneter.de
-         * 
-         * 
-         * Changelog:
-         * v2.1 – 30.01.2021
-         * – some changes in clearCookie() wich might improve the reliability of 
-         *   cookie clearing in Google Chrome (based on a single issue report)
-         * 
-         * v2.0 – 16.01.2021
-         * – added support for new tracking IDs with format G-XXXXXXXXXX
-         */
-
         // Google Analytics tracking ID
         // You may use the old format UA-XXXXXXXX-X or the newer one G-XXXXXXXXXX
         var $tracking_id = "G-XXXXXXXXXX";
@@ -128,7 +113,7 @@
         // OPTIONAL (set if you have trouble deleting cookies):
         // Set Google Analytics Cookie domain & path (needed for clearing cookies – have look in the inspector to get the values needed)
         // If set to false, values from window.location.hostname and window.location.pathname will be used
-        var $tracking_cookie_domain = false; // eg. ".example.com"
+        var $tracking_cookie_domain = false; // eg. ".example.com" or "example.com" - play around if not working instantly
         var $tracking_cookie_path = false;   // eg. "/"
 
 
@@ -187,16 +172,6 @@
                 path = "/";
             }
             document.cookie = name + '=; domain=' +  domain +'; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=' + path;
-        } 
-
-
-        // function for triggering a click on the cc-revoke button
-        // wich will show the consent banner again.
-        // You may use it in a link, such as this example:
-        // <a href="#" onclick="openCCbanner(); return false;">Cookie Consent</a>
-        function openCCbanner(){
-            var el = document.querySelector('.cc-revoke');
-            el.click();
         }
 
 
@@ -211,7 +186,6 @@
             window[$tracking_disable_cookie] = true;
             alert("Der Opt-Out-Cookie für das Deaktivieren von Google Analytics wurde abgelegt.")
         }
-
         /* --- [END] GOOGLE ANALYTICS specific stuff -------------------------------------------------- */
 
         

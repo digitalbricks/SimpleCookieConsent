@@ -66,6 +66,7 @@
     <script src="../dist/scc.min.js"></script>
     <script>
 
+        /* --- [START] SimpleCookieConsent Configuration ---------------------------------------------- */
         // instatiate and configure
         scc = new SimpleCookieConsent({
             'bannerText' : "Diese Website benutzt Cookies für die Nutzungsanalyse (Tracking-Cookes) – jedoch nur nach Ihrer Zustimmung (Opt-IN).",
@@ -92,6 +93,7 @@
         window.addEventListener('scc-revoked', function (e) { 
             disableMatomo();
         }, false);
+        /* --- [END] SimpleCookieConsent Configuration ----------------------------------------------- */
 
 
 
@@ -123,8 +125,7 @@
             location.reload();
             console.log('MATOMO Tracking disabled')
         }
-
-        /* --- [END] MATOMO specific stuff ---------------------------------------------------------- */
+        /* --- [END] MATOMO specific stuff ------------------------------------------------------------ */
 
         
 
